@@ -1,0 +1,16 @@
+oh_deer_app_welcome:
+    pattern:  /
+    defaults: { _controller: OhDeerAppBundle:Default:index }
+
+oh_deer_app_inventario:
+    pattern:  /inventario
+    defaults: { _controller: OhDeerAppBundle:Default:inventario }
+
+oh_deer_app_ventas:
+    pattern:  /ventas
+    defaults: { _controller: OhDeerAppBundle:Default:ventas }
+
+
+oh_deer_app_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: OhDeerAppBundle:Default:hello }

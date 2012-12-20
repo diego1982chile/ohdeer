@@ -1,0 +1,13 @@
+OhDeer\AppBundle\Entity\Categoria:
+    type: entity
+    table: null
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        nombre:
+            type: string
+            length: '31'
+    lifecycleCallbacks: {  }

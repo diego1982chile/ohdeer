@@ -1,0 +1,25 @@
+OhDeer\AppBundle\Entity\Producto:
+    type: entity
+    table: null
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        codigo:
+            type: string
+            length: '15'
+        descripcion:
+            type: string
+            length: 255
+        imagen:
+            type: string
+            length: 255
+        cantidad:
+            type: integer
+        fecha:
+            type: datetime
+        costo_pesos:
+            type: integer
+    lifecycleCallbacks: {  }
