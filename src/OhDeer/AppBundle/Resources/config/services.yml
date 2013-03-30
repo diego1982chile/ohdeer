@@ -1,5 +1,5 @@
 parameters:
-#    oh_deer_app.example.class: OhDeer\AppBundle\Example
+#   oh_deer_app.example.class: OhDeer\AppBundle\Example
 
 services:
 #    oh_deer_app.example:

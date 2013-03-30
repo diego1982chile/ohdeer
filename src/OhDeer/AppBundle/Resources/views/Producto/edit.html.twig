@@ -1,22 +1,109 @@
-<h1>Producto edit</h1>
+{% extends 'OhDeerAppBundle::layout.html.twig' %}
+{% form_theme edit_form _self %}
+{% block content_header '' %}   
+{% block content %}
+<table width="100%" class="display">
+    <tr>
+        <td colspan='2' class='ui-widget-header'>
+            <label style='font-size:20px;font-weight:bolder;text-transform:uppercase;color:grey'>
+                Edición Producto
+            </label>
+        </td>
+    </tr>
+    <tr>
+    <td class='ui-widget-content' width="50%">
+    <form action="{{ path('producto_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+    {{ form_widget(edit_form) }}         
+    {% block text_widget %}
+    <div class="text_widget">
+        {% set type = type|default('string') %}
+        {{ block('form_widget_simple') }}
+    </div>
+    {% endblock %}
+    {% block integer_widget %}
+    <div class="integer_widget">
+        {% set type = type|default('number') %}
+        {{ block('form_widget_simple') }}
+    </div>
+    {% endblock %}                 
+    {#% block _ohdeer_appbundle_productotype_categoria_widget %}
+    <div class="text_widget">
+        {% set type = type|default('string') %}
+        {{ block('form_widget_simple') }}        
+    </div>
+    {% endblock %#}  
+    {% block _ohdeer_appbundle_productotype_attachment_widget %}
+    <div class="file_widget">
+        {% set type = type|default('file') %}
+        {{ block('form_widget_simple') }}        
+    </div>
+    {% endblock %}              
+    </td>
+    <td class="ui-widget-content" align="center">    
+        <img id='imagen' src="{{ entity.imagen }}" style='height:250px;width:300px' />
+    </td>
+    </tr>
+    <tr>                    
+        <td colspan='2' class='ui-widget-header'>
+            <table>
+                <tr>
+                    <td style="padding: 0em">
+                        <a id="ver" href="{{ path('producto_show', { 'id': entity.id }) }}">
+                            ver
+                        </a>                            
+                    </td>
+                    <td style="padding: 0em">
+                        <button type="submit">
+                            guardar
+                        </button>                          
+                    </td>
+                </tr>                                                       
+            </table>
+        </td>
+    </tr>
+    </table>                
+    <a href="{{ path('producto') }}">
+        Volver al listado
+    </a>    
+<script>
+$(document).ready(function(){  
+    $('form div').children(':eq(4)').children().children().children(':eq(0)').val(new Date().getFullYear());
+    $('form div').children(':eq(4)').children().children().children(':eq(1)').val(new Date().getMonth());		
+    $('form div').children(':eq(4)').children().children().children(':eq(2)').val(new Date().getDate());		    
+    $('form div').children(':eq(6)').children().children().val(' ');
+    $('button').button();    
+});		
 
-<form action="{{ path('producto_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-    {{ form_widget(edit_form) }}
-    <p>
-        <button type="submit">Edit</button>
-    </p>
-</form>
+$('form div').children(':eq(3)').hide();
+$('form div').children(':eq(6)').hide();
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('producto') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <form action="{{ path('producto_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-</ul>
+$(document).ready(function(){      
+    $('#imagen').ready(function(){        
+        if(!$('#imagen').attr('src').fileExists())                                    
+        {            
+            $('#imagen').attr('src','/bundles/OhDeer/images/not_found.gif');            
+            $('#imagen').trigger('load');
+        }
+    });
+    //$('#boton_editar, a#ver').button();    
+    
+    $('input:file').change(function(event){        
+        preview(this);
+    });    
+});
+
+function preview(input) {    
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#imagen')
+                .attr('src', e.target.result)
+                .width(300)
+                .height(250);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>
+{% endblock %}

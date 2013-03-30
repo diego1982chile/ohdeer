@@ -46,6 +46,10 @@ class Producto
      * @var integer
      */
     private $costo_pesos;
+    
+    public $file;
+    
+    public $attachment;    
 
 
     /**
@@ -162,6 +166,23 @@ class Producto
     
         return $this;
     }
+    
+    public function setFile($file)
+    {
+        $this->file = $file;
+    
+        return $this;
+    }    
+    
+    public function getFile()
+    {
+        return $this->file;
+    }    
+    
+    public function getAttachment()
+    {
+        return $this->attachment;
+    }    
 
     /**
      * Get fecha
@@ -218,4 +239,18 @@ class Producto
     {
         return $this->categoria;
     }
-}
+    
+    public function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'uploads/documents';
+    }           
+}   

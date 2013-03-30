@@ -7,6 +7,7 @@ version: 2.8.2r1
 Reset
 */
 
+
 html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var,optgroup{font-style:inherit;font-weight:inherit;}del,ins{text-decoration:none;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym{border:0;font-variant:normal;}sup{vertical-align:baseline;}sub{vertical-align:baseline;}legend{color:#000;}input,button,textarea,select,optgroup,option{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;}input,button,textarea,select{*font-size:100%;}
 
 html, body
@@ -51,8 +52,16 @@ h1, h2, h3
 h1
 {
     font-size:      45px;
-    padding-bottom: 30px;
+    padding-bottom: 1px;
 }
+
+/*#imagen
+{
+   padding:1px !important;                    ;
+   border:1px solid #021a40 !important;                    ;
+   background-color:#ff0 !important;                    
+   -moz-animation:cubic-bezier; 
+}*/
 
 h2
 {
@@ -89,7 +98,7 @@ ul, ol
 
 li
 {
-    padding-bottom: 18px;
+    padding-bottom: 8px;
 }
 
 ol li
@@ -122,16 +131,17 @@ ul li
     -moz-border-radius:         16px;
     -webkit-border-radius:      16px;
     border-radius:              16px;
-    margin-bottom:              20px;
+    margin-bottom:              10px;
     word-wrap:                  break-word;
 }
 
 #symfony-search
 {
     position: absolute;
-    top:   50px;
+    top:   160px;
     right: 30px;
 }
+
 
 #symfony-search input[type="search"]
 {

@@ -8,6 +8,8 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
+        echo "hola";
+        echo "hola";        
         return $this->render('OhDeerAppBundle:Default:index.html.twig');
     }
 

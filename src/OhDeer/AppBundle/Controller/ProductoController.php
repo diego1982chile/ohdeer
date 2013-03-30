@@ -37,14 +37,14 @@ class ProductoController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('OhDeerAppBundle:Producto')->find($id);
+        $entity = $em->getRepository('OhDeerAppBundle:Producto')->find($id);                
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Producto entity.');
-        }
+        }        
 
-        $deleteForm = $this->createDeleteForm($id);
-
+        $deleteForm = $this->createDeleteForm($id);                
+        
         return $this->render('OhDeerAppBundle:Producto:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),        ));
@@ -57,14 +57,17 @@ class ProductoController extends Controller
     public function newAction()
     {
         $entity = new Producto();
-        $form   = $this->createForm(new ProductoType(), $entity);
+        $form   = $this->createForm(new ProductoType(), $entity);        
+//        $form = $this->createFormBuilder($entity)        
+//        ->add('file')
+//        ->getForm();        
 
         return $this->render('OhDeerAppBundle:Producto:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
-
+        
     /**
      * Creates a new Producto entity.
      *
@@ -73,10 +76,18 @@ class ProductoController extends Controller
     {
         $entity  = new Producto();
         $form = $this->createForm(new ProductoType(), $entity);
-        $form->bind($request);
+        $form->bind($request);                                        
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->getDoctrine()->getManager();                       
+
+            $entity->getAttachment()->move(            
+            __DIR__.'/../../../../web/uploads/documents',
+            $entity->getAttachment()->getClientOriginalName()             
+            );                                      
+            
+            $entity->setImagen("/uploads/documents/".$entity->getAttachment()->getClientOriginalName());            
+            
             $em->persist($entity);
             $em->flush();
 
@@ -173,7 +184,8 @@ class ProductoController extends Controller
     {
         return $this->createFormBuilder(array('id' => $id))
             ->add('id', 'hidden')
-            ->getForm()
-        ;
+            ->getForm();
     }
+    
+    
 }

@@ -1,16 +1,90 @@
-<h1>Producto creation</h1>
-
-<form action="{{ path('producto_create') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-    <p>
-        <button type="submit">Create</button>
-    </p>
-</form>
-
+{% extends 'OhDeerAppBundle::layout.html.twig' %}
+{% form_theme form _self %}
+{% block content_header '' %}   
+{% block content %}
+<table width="100%" class="display">
+    <tr>
+        <td colspan='2' class='ui-widget-header'>
+            <label style='font-size:20px;font-weight:bolder;text-transform:uppercase;color:grey'>
+                Nuevo Producto
+            </label>
+        </td>
+    </tr>
+    <tr>
+        <td width="50%" class='ui-widget-content'>
+            <form action="{{ path('producto_create') }}" method="post" {{ form_enctype(form) }} >
+            {{ form_widget(form) }}         
+            {% block text_widget %}
+            <div class="text_widget">
+                {% set type = type|default('string') %}
+                {{ block('form_widget_simple') }}
+            </div>
+            {% endblock %}
+            {% block integer_widget %}
+            <div class="integer_widget">
+                {% set type = type|default('number') %}
+                {{ block('form_widget_simple') }}
+            </div>
+            {% endblock %}                         
+            {% block _ohdeer_appbundle_productotype_attachment_widget %}
+            <div class="file_widget">
+                {% set type = type|default('file') %}
+                {{ block('form_widget_simple') }}        
+            </div>                    
+            {% endblock %}                                             
+            </form>
+        </td>
+        <td class="ui-widget-content" align="center">    
+            <img id='imagen' src="{{ asset('bundles/OhDeer/images/not_found.png') }}" style='height:250px;width:300px' />
+        </td>
+    </tr>
+    <tr>
+        <td colspan='2' class='ui-widget-header'>        
+            <button type="submit">
+                guardar
+            </button>        
+        </td>
+    </tr>
+</table>    
 <ul class="record_actions">
     <li>
         <a href="{{ path('producto') }}">
-            Back to the list
+            Volver al listado
         </a>
-    </li>
+    </li>    
 </ul>
+
+<script>
+
+$(document).ready(function(){  
+    $('form div').children(':eq(3)').children().children().children(':eq(0)').val(new Date().getFullYear());
+    $('form div').children(':eq(3)').children().children().children(':eq(1)').val(new Date().getMonth());		
+    $('form div').children(':eq(3)').children().children().children(':eq(2)').val(new Date().getDate());		    
+    $('form div').children(':eq(6)').children().children().val(' ');
+    $('button').button();    
+    
+    $('form div').children(':eq(3)').hide();
+    $('form div').children(':eq(6)').hide();    
+    
+    $('input:file').change(function(event){        
+        preview(this);
+    });    
+    
+});		
+
+function preview(input) {    
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#imagen')
+                .attr('src', e.target.result)
+                .width(300)
+                .height(250);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+</script>
+{% endblock %}

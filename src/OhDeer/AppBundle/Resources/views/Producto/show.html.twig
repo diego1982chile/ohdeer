@@ -1,53 +1,84 @@
-<h1>Producto</h1>
-
-<table class="record_properties">
-    <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ entity.id }}</td>
-        </tr>
-        <tr>
-            <th>Codigo</th>
-            <td>{{ entity.codigo }}</td>
-        </tr>
-        <tr>
-            <th>Descripcion</th>
-            <td>{{ entity.descripcion }}</td>
-        </tr>
-        <tr>
-            <th>Imagen</th>
-            <td>{{ entity.imagen }}</td>
-        </tr>
-        <tr>
-            <th>Cantidad</th>
-            <td>{{ entity.cantidad }}</td>
-        </tr>
-        <tr>
-            <th>Fecha</th>
-            <td>{{ entity.fecha|date('Y-m-d H:i:s') }}</td>
-        </tr>
-        <tr>
-            <th>Costo_pesos</th>
-            <td>{{ entity.costopesos }}</td>
-        </tr>
-    </tbody>
+{% extends 'OhDeerAppBundle::layout.html.twig' %}
+{% block content_header '' %}   
+{% block content %}
+<table width="100%" class="display">
+<tr>
+    <td colspan=2 class="ui-widget-header">
+        <label style='font-size:20px;font-weight:900;text-transform:uppercase;color:grey'>
+            Producto: {{ entity.codigo }}-[{{ entity.descripcion }}]
+        </label>
+    </td>
+</tr>
+<tr>
+<td style="text-align:left" class="ui-widget-content" width="50%">        
+        <div>
+            <div>Código</div>
+            <input value="{{ entity.codigo }}" readonly />
+        </div>
+        <div>
+            <div>Descripcion</div>
+            <input value="{{ entity.descripcion }}" readonly />
+        </div>        
+        <div>
+            <div>Cantidad</div>
+            <input value="{{ entity.cantidad }}" readonly />
+        </div>
+        <div>
+            <div>Ultima reposición</div>
+            <input value="{{ entity.fecha|date('d/m/Y') }}" readonly />
+        </div>
+        <div>
+            <div>Costo</div>
+            <input value="{{ entity.costopesos }}" readonly />
+        </div>    
+        <div>
+            <div>Categoría</div>
+            <input value="{{ entity.categoria }}" readonly />
+        </div> 
+</td>
+<td width="50%" class="ui-widget-content" align="center">                 
+    <img id='imagen' src="{{ entity.imagen }}" style='height:250px;width:300px' border='5' />                       
+</td>
+</tr>
+<tr>
+    <td colspan='2' class='ui-widget-header'>
+        <table>
+            <tr>
+                <td style="padding: 0em">
+                    <a id='boton_editar' href="{{ path('producto_edit', { 'id': entity.id }) }}">
+                        editar
+                    </a>    
+                </td>
+                <td style="padding: 0em">
+                    <form action="{{ path('producto_delete', { 'id': entity.id }) }}" method="post">
+                        {{ form_widget(delete_form) }}
+                            <button type="submit">
+                                eliminar
+                            </button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
 </table>
+<a href="{{ path('producto') }}">
+    Volver al listado
+</a>
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('producto') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('producto_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>
-        <form action="{{ path('producto_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-</ul>
+<script>
+
+$(document).ready(function(){      
+    $('#imagen').ready(function(){        
+        if(!$('#imagen').attr('src').fileExists())                                    
+        {            
+            $('#imagen').attr('src','/bundles/OhDeer/images/not_found.gif');            
+            $('#imagen').trigger('load');
+        }
+    });
+    $('button, #boton_editar').button();    
+    $('input').attr('disabled',true);        
+});		
+</script>
+
+{% endblock %}

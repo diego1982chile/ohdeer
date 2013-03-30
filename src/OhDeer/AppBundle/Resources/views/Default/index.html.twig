@@ -7,29 +7,27 @@
 {% block content %}
 
     <h1>Sistema de control de inventario</h1>
-
-    <p>bla bla bla...</p>
+    <br />
+    <p>Bienvenido al sistema de control de inventario Oh Deer!. Seleccione alguna de las opciones del menú principal</p>
 
     <div class="symfony-blocks-welcome">
         <div class="block-quick-tour">
             <div class="illustration">
-                <img src="{{ asset('bundles/acmedemo/images/welcome-quick-tour.gif') }}" alt="Inventario" />
+                <img src="{{ asset('bundles/OhDeer/images/productos.gif') }}" alt="Inventario" />
             </div>
-            <a class="symfony-button-green" href="{{ path('oh_deer_app_inventario') }}">Inventario</a>
-        </div>
-        {% if app.environment == 'd' %}
-            <div class="block-configure">
-                <div class="illustration">
-                    <img src="{{ asset('bundles/acmedemo/images/welcome-configure.gif') }}" alt="Configure your application" />
-                </div>
-                <a class="symfony-button-green" href="{{ path('_configurator_home') }}">Configure</a>
+            <a href="{{ path('oh_deer_app_inventario') }}">Inventario</a>
+        </div>        
+        <div class="block-configure">
+            <div class="illustration">
+                <img src="{{ asset('bundles/OhDeer/images/ventas.gif') }}" alt="ventas" />
             </div>
-        {% endif %}
+            <a href="{{ path('_configurator_home') }}">Ventas</a>
+        </div>        
         <div class="block-demo">
             <div class="illustration">
-                <img src="{{ asset('bundles/acmedemo/images/welcome-demo.gif') }}" alt="Demo" />
+                <img src="{{ asset('bundles/OhDeer/images/pedidos.gif') }}" alt="Demo" />
             </div>
-            <a class="symfony-button-green" href="{{ path('oh_deer_app_ventas') }}">Ventas</a>
+            <a href="{{ path('oh_deer_app_ventas') }}">Reposiciones</a>
         </div>
     </div>
 

@@ -12,13 +12,13 @@ class ProductoType extends AbstractType
     {
         $builder
             ->add('codigo')
-            ->add('descripcion')
-            ->add('imagen')
+            ->add('descripcion')            
             ->add('cantidad')
             ->add('fecha')
             ->add('costo_pesos')
             ->add('categoria')
-        ;
+            ->add('imagen') 
+            ->add('attachment', 'file');
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

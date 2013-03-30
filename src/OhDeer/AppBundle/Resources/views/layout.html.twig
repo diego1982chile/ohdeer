@@ -2,21 +2,30 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}OhDeer{% endblock %}</title>
+        <title>{% block title %}Oh Deer{% endblock %}</title>        
         <link rel="icon" sizes="16x16" href="{{ asset('favicon.ico') }}" />
         <link rel="stylesheet" href="{{ asset('bundles/acmedemo/css/demo.css') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/OhDeer/css/jquery-ui-1.9.2.custom.css') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/OhDeer/css/demo_table.css') }}" />       
+        <link rel="stylesheet" href="{{ asset('bundles/OhDeer/css/demo_table_jui.css') }}" />       
+        <link rel="stylesheet" href="{{ asset('bundles/OhDeer/css/demo_page.css') }}" />         
+        {% block javascripts %}              
+        <script src="{{ asset('bundles/OhDeer/js/jquery.js') }}" type="text/javascript" ></script>        
+        <script src="{{ asset('bundles/OhDeer/js/jquery-ui-1.9.2.custom.js') }}" type="text/javascript" ></script>
+        <script src="{{ asset('bundles/OhDeer/js/jquery.dataTables.js') }}" type="text/javascript" ></script>        
+        {% endblock javascripts %}
     </head>
     <body>
         <div id="symfony-wrapper">
             <div id="symfony-header">
                 <a href="{{ path('oh_deer_app_welcome') }}">
-                    <img src="{{ asset('bundles/acmedemo/images/logo.gif') }}" alt="Symfony logo" />
+                    <img src="{{ asset('bundles/OhDeer/images/logo.gif') }}" alt="Symfony logo" />
                 </a>
-                <!--form id="symfony-search" method="GET" action="http://symfony.com/search">
-                    <label for="symfony-search-field"><span>Search on Symfony Website</span></label>
-                    <input name="q" id="symfony-search-field" type="search" placeholder="Search on Symfony website" class="medium_txt" />
-                    <input type="submit" class="symfony-button-grey" value="OK" />
-                </form-->
+                <form id="symfony-search">
+                    <a href="{{ path('oh_deer_app_welcome') }}">
+                        Volver al menú principal
+                    </a>
+                </form>
             </div>
 
             {% for flashMessage in app.session.flashbag.get('notice') %}
@@ -47,3 +56,25 @@
         </div>
     </body>
 </html>
+<script>
+/**
+ * Very simple way to check if a file exists on this domain.
+ * Use with the jQuery library.
+ *
+ * Important: 	Works only on the same domain. 
+ * 		Cross-domain-requests have to be done in another way (see JSONP)!
+ *
+ * Use: console.log(   "/data/list.json".fileExists()  );
+ */
+String.prototype.fileExists = function() {
+	filename = this.trim();
+	
+	var response = jQuery.ajax({
+		url: filename,
+		type: 'HEAD',
+		async: false
+	}).status;	
+	
+	return (response != "200") ? false : true;
+}
+</script>
